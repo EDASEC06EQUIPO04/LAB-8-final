@@ -23,6 +23,7 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import listiterator as it
 from App import controller
 assert config
 
@@ -40,6 +41,27 @@ operación seleccionada.
 
 #crimefile = 'crime-utf8.csv'
 accidentFile='us_accidents_small.csv'
+
+
+
+def printAccident(info, lista):
+        aux=[]
+        totalcounter=0
+        #print (info['accidents'])
+        info=lt.getElement(info['accidents'],0)
+        
+        iterator = it.newIterator(info['id'])
+
+        while it.hasNext(iterator):
+            accidente = it.next(iterator)
+            totalcounter+=1
+            aux.append(accidente["Severity"])
+        for x in aux:
+            result = controller.getIdInfo(cont, x)
+            print(result['ID']['Severity']["Start_Time"])
+        print ('Total de accidentes [ ', totalcounter, '] en el dia [', result["Start_Time"])
+        
+
 
 # ___________________________________________________
 #  Menu principal
@@ -93,23 +115,31 @@ while True:
         print("\n Cargando información de accidentes ....\n")
 
         controller.loadData(cont, accidentFile)
-        print('Accidentes cargados: ' + str(controller.accidentSize(cont)))
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@") 
         print (lt.getElement(cont['accidents'],0))
         print (lt.getElement(cont['accidents'],controller.accidentSize(cont)))
-
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         #for i  in range (0,controller.accidentSize(cont)):
         #   print (lt.getElement(cont['accidents'],i))
-
-       
-        #print('Altura del arbol: ' + str(controller.indexHeight(cont)))
-        #print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
-        #print('Menor Llave: ' + str(controller.minKey(cont)))
-        #print('Mayor Llave: ' + str(controller.maxKey(cont)))
+        print ("")
+        print('Accidentes cargados: ' + str(controller.accidentSize(cont)))
+        print('Altura del arbol: ' + str(controller.indexHeight(cont)))
+        print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
+        print('Menor Llave: ' + str(controller.minKey(cont)))
+        print('Mayor Llave: ' + str(controller.maxKey(cont)))
         print("")
+        input("Clic para continuar")
+        ###
         input("Clic para continuar")
 
     elif int(inputs[0]) == 3:
         print("\nBuscando crimenes en un rango de fechas: ")
+        initialDate = input("Rango Inicial (YYYY-MM-DD): ")       
+        finalDate = input("Rango Final (YYYY-MM-DD): ")
+        lst = controller.getAccidentsByRange(cont, initialDate,finalDate)
+        print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
+        printAccident(cont,lst)
+
 
 
     elif int(inputs[0]) == 4:

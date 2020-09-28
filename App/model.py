@@ -129,12 +129,52 @@ def newDataEntry(accident):
 # ==============================
 # Funciones de consulta
 # ==============================
+def getAccidentsByRange(analyzer, initialDate,finalDate):
+    """
+    Retorna el numero de crimenes en un rago de fechas.
+    """
+    lst = om.values(analyzer['dateIndex'], initialDate,finalDate)
+    """accidentDate=om.get(analyzer['dateIndex'], initialDate)
+    
+
+    if accidentDate['key'] is not None:
+        offensemap = me.getValue(accidentDate)['severityIndex']
+        numoffenses = m.get(offensemap, offensecode)
+        if numoffenses is not None:
+            return m.size(me.getValue(numoffenses)['lst_accidents'])
+        return 0
+    """
+    return lst
+
 
 def accidentSize(analyzer):
     """
     Número de accidentes en el catago
     """
     return lt.size(analyzer['accidents'])
+
+
+def indexHeight(analyzer):
+    """Numero de accidentes leido
+    """
+    return om.height(analyzer['dateIndex'])
+
+def indexSize(analyzer):
+    """Numero de autores leido
+    """
+    return om.size(analyzer['dateIndex'])
+
+def minKey(analyzer):
+    """Numero de autores leido
+    """
+    return om.minKey(analyzer['dateIndex'])
+
+
+def maxKey(analyzer):
+    """Numero de autores leido
+    """
+    return om.maxKey(analyzer['dateIndex'])
+
 
 # ==============================
 # Funciones de Comparacion
