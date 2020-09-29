@@ -25,6 +25,7 @@ import config
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from App import controller
+import datetime
 assert config
 
 """
@@ -45,6 +46,25 @@ accidentFile='us_accidents_small.csv'
 
 
 def printAccident(info, lista):
+        accidentRead=lt.getElement(info['accidents'],0) 
+        print (accidentRead['Severity'])
+        print (lt.getElement(lst,0))
+        numAccidentes=controller.accidentSize(info)
+        for k,v in lst.items():
+            #print (numAccidentes)
+            #input("Estamos en primer loop")
+            for i in range (0,numAccidentes):
+                accidentRead=lt.getElement(info['accidents'],i) 
+                #oneDate = datetime.datetime.strptime(accidentRead['Start_Time'], '%Y-%m-%d')
+                oneDate = accidentRead['Start_Time']
+                #oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d')
+                #oneDate = datetime.fromisoformat(oneDate)
+                #oneDate = datetime._parse_isoformat_date(oneDate)
+                print (i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate)
+                #if v== accidentRead['Start_Time']:     
+                #    print (v, accidentRead['Severity'])
+
+        """
         aux=[]
         totalcounter=0
         #print (info['accidents'])
@@ -60,6 +80,8 @@ def printAccident(info, lista):
             result = controller.getIdInfo(cont, x)
             print(result['ID']['Severity']["Start_Time"])
         print ('Total de accidentes [ ', totalcounter, '] en el dia [', result["Start_Time"])
+        
+        """
         
 
 
@@ -128,9 +150,11 @@ while True:
         print('Menor Llave: ' + str(controller.minKey(cont)))
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
         print("")
+
+        #accidentRead=lt.getElement(cont['accidents'],0) 
+        #print (accidentRead['Severity'])
         input("Clic para continuar")
-        ###
-        input("Clic para continuar")
+       
 
     elif int(inputs[0]) == 3:
         print("\nBuscando crimenes en un rango de fechas: ")
@@ -139,6 +163,9 @@ while True:
         lst = controller.getAccidentsByRange(cont, initialDate,finalDate)
         print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
         printAccident(cont,lst)
+
+        
+        input("Clic para continuar")
 
 
 

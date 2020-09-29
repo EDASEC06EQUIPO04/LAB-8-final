@@ -70,6 +70,7 @@ def getAccidentsByRange(analyzer, initialDate,finalDate):
     """
     initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
     finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
+    
     return model.getAccidentsByRange(analyzer, initialDate.date(),finalDate.date())
 
 def accidentSize(analyzer):
