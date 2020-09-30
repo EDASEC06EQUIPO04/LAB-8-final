@@ -30,8 +30,6 @@ assert config
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
-
-
 """
 
 # -----------------------------------------------------
@@ -64,7 +62,6 @@ def updateDateIndex(map, accident):
     Se toma la fecha del accident y se busca si ya existe en el arbol
     dicha fecha.  Si es asi, se adiciona a su lista de accidentes
     y se actualiza el indice de tipos de accidentes.
-
     Si no se encuentra creado un nodo para esa fecha en el arbol
     se crea y se actualiza el indice de tipos de accidentes
     """
@@ -136,7 +133,6 @@ def getAccidentsByRange(analyzer, initialDate,finalDate):
     lst = om.values(analyzer['dateIndex'], initialDate,finalDate)
     """accidentDate=om.get(analyzer['dateIndex'], initialDate)
     
-
     if accidentDate['key'] is not None:
         offensemap = me.getValue(accidentDate)['severityIndex']
         numoffenses = m.get(offensemap, offensecode)

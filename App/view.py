@@ -53,6 +53,10 @@ def printAccident(info, lista):
         for k,v in lst.items():
             #print (numAccidentes)
             #input("Estamos en primer loop")
+            #print (lt.getElement(lst,0))
+            print (v)
+        input("ya imprimi el mapa")    
+        """
             for i in range (0,numAccidentes):
                 accidentRead=lt.getElement(info['accidents'],i) 
                 #oneDate = datetime.datetime.strptime(accidentRead['Start_Time'], '%Y-%m-%d')
@@ -63,7 +67,7 @@ def printAccident(info, lista):
                 print (i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate)
                 #if v== accidentRead['Start_Time']:     
                 #    print (v, accidentRead['Severity'])
-
+        """
         """
         aux=[]
         totalcounter=0
@@ -71,7 +75,6 @@ def printAccident(info, lista):
         info=lt.getElement(info['accidents'],0)
         
         iterator = it.newIterator(info['id'])
-
         while it.hasNext(iterator):
             accidente = it.next(iterator)
             totalcounter+=1
@@ -158,13 +161,30 @@ while True:
 
     elif int(inputs[0]) == 3:
         print("\nBuscando crimenes en un rango de fechas: ")
+        
+        initialDate="2000-00-00"
+        finalDate= "2000-00-00"
         initialDate = input("Rango Inicial (YYYY-MM-DD): ")       
         finalDate = input("Rango Final (YYYY-MM-DD): ")
-        lst = controller.getAccidentsByRange(cont, initialDate,finalDate)
+        lst = controller.getAccidentsByRange(cont, initialDate,finalDate) 
+        
+        #print (lst)
         print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
+        print (initialDate,finalDate)
+
+        #for k,v in lst.items():
+           #print (lt.getElement(lst,0))
+        #   print (v)
+        
         printAccident(cont,lst)
 
+        """tamLista= lt.size(lst)   
+        for i in range (1, tamLista):
+               print (lt.getElement(lst,i))
         
+      
+
+        """
         input("Clic para continuar")
 
 
