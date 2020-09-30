@@ -50,20 +50,26 @@ def printAccident(info, lista):
         print (accidentRead['Severity'])
         print (lt.getElement(lst,0))
         numAccidentes=controller.accidentSize(info)
-        for k,v in lst.items():
-            #print (v)                  #Aqui se imprimen los valores del mapa
-        
+        for k in range (0, lt.size(lst)):
+            #print (lt.getElement(lst,k))                  #Aqui se imprimen los valores del mapa
+            dateCom=lt.getElement(lst,k)
+            
             for i in range (0,numAccidentes):
+            #for i in range (0,10):    
                 accidentRead=lt.getElement(info['accidents'],i) 
                 #oneDate = datetime.datetime.strptime(accidentRead['Start_Time'], '%Y-%m-%d')
                 oneDate = accidentRead['Start_Time']
-                #oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d')
+                oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d %H:%M:%S')
+                oneDate1 = datetime.datetime.strftime(oneDate,'%Y-%m-%d')
+                #print (oneDate1)
                 #oneDate = datetime.fromisoformat(oneDate)
                 #oneDate = datetime._parse_isoformat_date(oneDate)
-                print (i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate)
-                #if v== accidentRead['Start_Time']:     
-                #    print (v, accidentRead['Severity'])
-        
+                #print ("  k: ", k, "   v:", v, "  ", i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate1)
+                #print (dateCom, "-->",oneDate1)
+                #input("")
+                if str(dateCom)==str(oneDate1):     
+                     print (dateCom, "-->", i, ": " , accidentRead['ID']," ", accidentRead['Severity'])
+            
       
         
 
