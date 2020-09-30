@@ -51,12 +51,8 @@ def printAccident(info, lista):
         print (lt.getElement(lst,0))
         numAccidentes=controller.accidentSize(info)
         for k,v in lst.items():
-            #print (numAccidentes)
-            #input("Estamos en primer loop")
-            #print (lt.getElement(lst,0))
-            print (v)
-        input("ya imprimi el mapa")    
-        """
+            #print (v)                  #Aqui se imprimen los valores del mapa
+        
             for i in range (0,numAccidentes):
                 accidentRead=lt.getElement(info['accidents'],i) 
                 #oneDate = datetime.datetime.strptime(accidentRead['Start_Time'], '%Y-%m-%d')
@@ -67,24 +63,8 @@ def printAccident(info, lista):
                 print (i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate)
                 #if v== accidentRead['Start_Time']:     
                 #    print (v, accidentRead['Severity'])
-        """
-        """
-        aux=[]
-        totalcounter=0
-        #print (info['accidents'])
-        info=lt.getElement(info['accidents'],0)
         
-        iterator = it.newIterator(info['id'])
-        while it.hasNext(iterator):
-            accidente = it.next(iterator)
-            totalcounter+=1
-            aux.append(accidente["Severity"])
-        for x in aux:
-            result = controller.getIdInfo(cont, x)
-            print(result['ID']['Severity']["Start_Time"])
-        print ('Total de accidentes [ ', totalcounter, '] en el dia [', result["Start_Time"])
-        
-        """
+      
         
 
 
