@@ -46,6 +46,9 @@ accidentFile='us_accidents_small.csv'
 
 
 def printAccident(info, lista):
+
+        accidentCounter=0
+
         accidentRead=lt.getElement(info['accidents'],0) 
         print (accidentRead['Severity'])
         print (lt.getElement(lst,0))
@@ -61,6 +64,7 @@ def printAccident(info, lista):
                 oneDate = accidentRead['Start_Time']
                 oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d %H:%M:%S')
                 oneDate1 = datetime.datetime.strftime(oneDate,'%Y-%m-%d')
+                
                 #print (oneDate1)
                 #oneDate = datetime.fromisoformat(oneDate)
                 #oneDate = datetime._parse_isoformat_date(oneDate)
@@ -68,8 +72,10 @@ def printAccident(info, lista):
                 #print (dateCom, "-->",oneDate1)
                 #input("")
                 if str(dateCom)==str(oneDate1):     
-                     print (dateCom, "-->", i, ": " , accidentRead['ID']," ", accidentRead['Severity'])
-            
+                    print (dateCom, "-->", i, ": " , "ID: ", accidentRead['ID']," ", "Severidad: ",accidentRead['Severity'])
+                    accidentCounter = accidentCounter+1
+        
+        print ("se encontraron ", accidentCounter ," accidentes en la fecha especificada")
       
         
 
@@ -126,10 +132,8 @@ while True:
         print("\n Cargando información de accidentes ....\n")
 
         controller.loadData(cont, accidentFile)
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@") 
         print (lt.getElement(cont['accidents'],0))
         print (lt.getElement(cont['accidents'],controller.accidentSize(cont)))
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         #for i  in range (0,controller.accidentSize(cont)):
         #   print (lt.getElement(cont['accidents'],i))
         print ("")
@@ -146,7 +150,7 @@ while True:
        
 
     elif int(inputs[0]) == 3:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nIngrese una fecha para buscar accidentes: ")
         
         initialDate="2000-00-00"
         #finalDate= "2000-00-00"
