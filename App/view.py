@@ -46,6 +46,9 @@ accidentFile='us_accidents_small.csv'
 
 
 def printAccident(info, lista):
+
+        accidentCounter=0
+
         accidentRead=lt.getElement(info['accidents'],0) 
         print (accidentRead['Severity'])
         print (lt.getElement(lst,0))
@@ -61,6 +64,7 @@ def printAccident(info, lista):
                 oneDate = accidentRead['Start_Time']
                 oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d %H:%M:%S')
                 oneDate1 = datetime.datetime.strftime(oneDate,'%Y-%m-%d')
+                
                 #print (oneDate1)
                 #oneDate = datetime.fromisoformat(oneDate)
                 #oneDate = datetime._parse_isoformat_date(oneDate)
@@ -68,10 +72,42 @@ def printAccident(info, lista):
                 #print (dateCom, "-->",oneDate1)
                 #input("")
                 if str(dateCom)==str(oneDate1):     
-                     print (dateCom, "-->", i, ": " , accidentRead['ID']," ", accidentRead['Severity'])
-            
-      
+                    print (dateCom, "-->", i, ": " , "ID: ", accidentRead['ID']," ", "Severidad: ",accidentRead['Severity'])
+                    accidentCounter = accidentCounter+1
         
+        print ("se encontraron ", accidentCounter ," accidentes en la fecha especificada")
+      
+def printAccidentAntesDe(info, lista):
+    
+        accidentCounter=0
+
+        accidentRead=lt.getElement(info['accidents'],0) 
+        print (accidentRead['Severity'])
+        print (lt.getElement(lst,0))
+        numAccidentes=controller.accidentSize(info)
+        for k in range (0, lt.size(lst)):
+            #print (lt.getElement(lst,k))                  #Aqui se imprimen los valores del mapa
+            dateCom=lt.getElement(lst,k)
+            
+            for i in range (0,numAccidentes):
+            #for i in range (0,10):    
+                accidentRead=lt.getElement(info['accidents'],i) 
+                #oneDate = datetime.datetime.strptime(accidentRead['Start_Time'], '%Y-%m-%d')
+                oneDate = accidentRead['Start_Time']
+                oneDate = datetime.datetime.strptime(oneDate, '%Y-%m-%d %H:%M:%S')
+                oneDate1 = datetime.datetime.strftime(oneDate,'%Y-%m-%d')
+                
+                #print (oneDate1)
+                #oneDate = datetime.fromisoformat(oneDate)
+                #oneDate = datetime._parse_isoformat_date(oneDate)
+                #print ("  k: ", k, "   v:", v, "  ", i, ": " , accidentRead['ID']," ", accidentRead['Severity']," ",oneDate1)
+                #print (dateCom, "-->",oneDate1)
+                #input("")
+                if str(dateCom)>=str(oneDate1):     
+                    print (dateCom, "-->", i, ": " , "ID: ", accidentRead['ID']," ", "Severidad: ",accidentRead['Severity'])
+                    accidentCounter = accidentCounter+1
+        accidentCounter = accidentCounter-1
+        print ("se encontraron ", accidentCounter ," accidentes antes de la fecha especificada")        
 
 
 # ___________________________________________________
@@ -126,10 +162,8 @@ while True:
         print("\n Cargando información de accidentes ....\n")
 
         controller.loadData(cont, accidentFile)
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@") 
         print (lt.getElement(cont['accidents'],0))
         print (lt.getElement(cont['accidents'],controller.accidentSize(cont)))
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         #for i  in range (0,controller.accidentSize(cont)):
         #   print (lt.getElement(cont['accidents'],i))
         print ("")
@@ -146,17 +180,17 @@ while True:
        
 
     elif int(inputs[0]) == 3:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nIngrese una fecha para buscar accidentes: ")
         
         initialDate="2000-00-00"
-        finalDate= "2000-00-00"
-        initialDate = input("Rango Inicial (YYYY-MM-DD): ")       
-        finalDate = input("Rango Final (YYYY-MM-DD): ")
-        lst = controller.getAccidentsByRange(cont, initialDate,finalDate) 
+        #finalDate= "2000-00-00"
+        initialDate = input("Fecha Busqueda (YYYY-MM-DD): ")       
+        #finalDate = input("Rango Final (YYYY-MM-DD): ")
+        lst = controller.getAccidentsByRange(cont, initialDate, initialDate) 
         
         #print (lst)
         print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
-        print (initialDate,finalDate)
+        print (initialDate)
 
         #for k,v in lst.items():
            #print (lt.getElement(lst,0))
@@ -169,14 +203,50 @@ while True:
                print (lt.getElement(lst,i))
         
       
-
         """
         input("Clic para continuar")
 
-
-
     elif int(inputs[0]) == 4:
+        print("\nIngrese una fecha para buscar accidentes antes de esta: ")
+        
+        initialDate="2000-00-00"
+        #finalDate= "2000-00-00"
+        initialDate = input("Fecha Busqueda (YYYY-MM-DD): ")       
+        #finalDate = input("Rango Final (YYYY-MM-DD): ")
+        lst = controller.getAccidentsByRange(cont, initialDate, initialDate) 
+        
+        #print (lst)
+        print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
+        print (initialDate)
+
+        #for k,v in lst.items():
+           #print (lt.getElement(lst,0))
+        #   print (v)
+        
+        printAccidentAntesDe(cont,lst)
+
+        """tamLista= lt.size(lst)   
+        for i in range (1, tamLista):
+               print (lt.getElement(lst,i))
+        
+      
+        """
+        input("Clic para continuar")
+
+    elif int(inputs[0]) == 5:
         print("\nRequerimiento No 1 del reto 3: ")
+
+        print("\nBuscando crimenes en un rango de fechas: ")
+        
+        initialDate="2000-00-00"
+        finalDate= "2000-00-00"
+        initialDate = input("Rango Inicial (YYYY-MM-DD): ")       
+        finalDate = input("Rango Final (YYYY-MM-DD): ")
+        lst = controller.getAccidentsByRange(cont, initialDate,finalDate) 
+        
+        #print (lst)
+        print("\nTotal de llaves en el rango: " + str(lt.size(lst)))
+        print (initialDate,finalDate)
 
     else:
         sys.exit(0)
