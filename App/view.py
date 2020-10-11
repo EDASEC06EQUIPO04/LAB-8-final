@@ -27,6 +27,7 @@ from DISClib.DataStructures import listiterator as it
 from App import controller
 import datetime
 assert config
+from time import process_time 
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -40,8 +41,10 @@ operación seleccionada.
 # ___________________________________________________
 
 
-#crimefile = 'crime-utf8.csv'
-accidentFile='us_accidents_small.csv'
+#accidentFile='us_accidents_small.csv'
+accidentFile='us_accidents_dis_2016.csv'
+#accidentFile='US_Accidents_Dec19.csv'
+
 
 
 
@@ -188,6 +191,8 @@ while True:
 
     elif int(inputs[0]) == 2:
 
+        t1_start = process_time()
+
         print("\n Cargando información de accidentes ....\n")
 
         controller.loadData(cont, accidentFile)
@@ -205,6 +210,8 @@ while True:
 
         #accidentRead=lt.getElement(cont['accidents'],0) 
         #print (accidentRead['Severity'])
+        t1_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
         input("Clic para continuar")
        
 
